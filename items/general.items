@@ -1,0 +1,12 @@
+Group RRD4J
+
+Number periodTemperature
+Number periodHumidity
+Number periodWeather
+Number periodIllumination
+Number periodWindspeed
+Number periodRainCounter
+Number periodAzimut
+Number periodElevation
+
+String broadlinkData "Broadlink IR Daten" {channel="exec:command:broadlink:input"}

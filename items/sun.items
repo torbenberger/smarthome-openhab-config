@@ -1,0 +1,4 @@
+Group RRD4J
+Group gSunAll
+Number   Azimuth        "Azimuth [%.2f]"        (RRD4J, gSunAll)     { channel="astro:sun:local:position#azimuth" }
+Number   Elevation      "Elevation [%.2f]"      (RRD4J, gSunAll)     { channel="astro:sun:local:position#elevation" }

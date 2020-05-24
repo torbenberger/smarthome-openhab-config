@@ -1,0 +1,49 @@
+Group balkony
+
+//groups are needed for triggering the rules
+Group rollProxy "Raffstore Proxy"
+Group rollControl "Raffstore Bindings"
+Group rollStatus "Raffstore Status"
+
+Switch automaticBlinds
+
+//proxy
+Rollershutter balkonyRaffstoreRight "Balkon Raffstore rechts [%d %%]" (rollProxy)
+//control
+Rollershutter balkonyRaffstoreRightControl "Balkon Raffstore rechts Binding [%d %%]" (rollControl) ["Switchable"] {channel="homematic:HmIP-BROLL:3014F711A0001F9A498CA5C6:00111A49A49085:4#LEVEL"}
+// status
+Rollershutter balkonyRaffstoreRightStatus "Balkon Raffstore rechts Status [%d %%]" (rollStatus) {channel="homematic:HmIP-BROLL:3014F711A0001F9A498CA5C6:00111A49A49085:3#LEVEL"}
+
+
+//proxy
+Rollershutter balkonyRaffstoreLeft "Balkon Raffstore links [%d %%]" (rollProxy)
+//control
+Rollershutter balkonyRaffstoreLeftControl "Balkon Raffstore links Binding [%d %%]" (rollControl) ["Switchable"] {channel="homematic:HmIP-BROLL:3014F711A0001F9A498CA5C6:00111A49A33561:4#LEVEL"}
+// status
+Rollershutter balkonyRaffstoreLeftStatus "Balkon Raffstore links Status [%d %%]" (rollStatus) {channel="homematic:HmIP-BROLL:3014F711A0001F9A498CA5C6:00111A49A33561:3#LEVEL"}
+
+
+//proxy
+Rollershutter kitchenRaffstore "Küche Raffstore [%d %%]" (rollProxy)
+//control
+Rollershutter kitchenRaffstoreControl "Küche Raffstore Binding [%d %%]" (rollControl) ["Switchable"] {channel="homematic:HmIP-BROLL:3014F711A0001F9A498CA5C6:00111A49A49091:4#LEVEL"}
+// status
+Rollershutter kitchenRaffstoreStatus "Küche Raffstore Status [%d %%]" (rollStatus) {channel="homematic:HmIP-BROLL:3014F711A0001F9A498CA5C6:00111A49A49091:3#LEVEL"}
+
+
+//proxy
+Rollershutter bedroomRaffstore "Schlafzimmer Raffstore [%d %%]" (rollProxy)
+//control
+Rollershutter bedroomRaffstoreControl "Schlafzimmer Raffstore Binding [%d %%]" (rollControl) ["Switchable"] {channel="homematic:HmIP-BROLL:3014F711A0001F9A498CA5C6:00111A49A490B6:4#LEVEL"}
+// status
+Rollershutter bedroomRaffstoreStatus "Schlafzimmer Raffstore Status [%d %%]" (rollStatus) {channel="homematic:HmIP-BROLL:3014F711A0001F9A498CA5C6:00111A49A490B6:3#LEVEL"}
+
+
+//proxy
+Rollershutter livingRoomRollo "Rollo [%d %%]" (rollProxy)
+//control
+Rollershutter livingRoomRolloControl "Rollo Binding [%d %%]" (rollControl) ["Switchable"] {channel="homematic:HmIP-FROLL:3014F711A0001F9A498CA5C6:00115A499F43DA:4#LEVEL"}
+// status
+Rollershutter livingRoomRolloStatus "Rollo Status [%d %%]" (rollStatus) {channel="homematic:HmIP-FROLL:3014F711A0001F9A498CA5C6:00115A499F43DA:3#LEVEL"}
+
+String tuergriffBalkon "State" {channel="homematic:HmIP-SRH:3014F711A0001F9A498CA5C6:0007DA49992CF6:1#STATE"}

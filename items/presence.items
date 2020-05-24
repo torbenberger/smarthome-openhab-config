@@ -1,0 +1,5 @@
+Group:Switch:OR(ON,OFF) someoneAtHome "Jemand zuhause"
+
+Location locationTorbensIPhone "Torbens iPhoneLocation" {channel="icloud:device:5a5609ab:7e8d4fbc:location"}
+Location homeLocation
+Number distanceFromHome

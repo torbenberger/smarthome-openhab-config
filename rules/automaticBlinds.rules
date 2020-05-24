@@ -1,0 +1,122 @@
+rule "Automatische Verschattung der Rollos"	
+when
+	Item OUTDOOR_ILLUMINATION received update
+then
+
+	var float schwellwert_verschattung_lux_now = 7000
+	var float schwellwert_verschattung_lux_avg = 6000
+	var float schwellwert_elevation = 10
+
+	var helligkeit_aktuell = (OUTDOOR_ILLUMINATION.state as Number).intValue
+	var helligkeit_avg = (OUTDOOR_ILLUMINATION.averageSince(now.minusMinutes(30)) as Number).intValue
+	var float aussen_temperatur = (OUTDOOR_TEMPERATURE.state as Number).floatValue
+	var float azimuth = (Azimuth.state as DecimalType).floatValue
+	var float elevation = (Elevation.state as DecimalType).floatValue
+    
+    var sleepTime = now.getMinuteOfDay < 10 * 60 + 0 || now.getMinuteOfDay > 22 * 60 + 59
+
+	logInfo("Beschattung","Die Helligkeit jetzt ist: " + helligkeit_aktuell + " AVG: " 
+                           + helligkeit_avg + " Außen-Temp: " 
+                           + aussen_temperatur + " Azimuth: " + azimuth + " Elevation: " + elevation)
+
+
+    if(automaticBlinds.state == ON) {
+        if (
+            elevation > schwellwert_elevation &&
+            helligkeit_aktuell > schwellwert_verschattung_lux_now &&
+            helligkeit_avg > schwellwert_verschattung_lux_avg
+        ) {
+            logInfo("Beschattung","Grundlegende Bedingungen für Beschattung erfüllt")
+
+            // Ostseite
+            if (azimuth > 80.0 && azimuth < 160.0) {
+                logInfo("Beschattung","Bedingungen für Beschattung Ost erfüllt")
+
+                if(bedroomRaffstoreControl.state.toString != "100" && !sleepTime) {
+                    bedroomRaffstoreControl.sendCommand("100")
+                }
+
+                if(kitchenRaffstoreControl.state.toString != "100") {
+                    kitchenRaffstoreControl.sendCommand("100")
+                }
+            } else {
+                if(bedroomRaffstoreControl.state.toString != "1" && !sleepTime) {
+                    bedroomRaffstoreControl.sendCommand("1")
+                }
+
+                if(kitchenRaffstoreControl.state.toString != "1") {
+                    kitchenRaffstoreControl.sendCommand("1")
+                }
+            }
+            // Südseite
+            if (azimuth > 93 && azimuth < 270) {
+                logInfo("Beschattung","Bedingungen für Beschattung Süd erfüllt")
+
+                if(balkonyRaffstoreRightControl.state.toString != "100" && tuergriffBalkon.state.toString != "OPEN") {
+                    balkonyRaffstoreRightControl.sendCommand("100")
+                }
+
+                if(balkonyRaffstoreLeftControl.state.toString != "100") {
+                    balkonyRaffstoreLeftControl.sendCommand("100")
+                }
+
+                if(livingRoomRolloControl.state.toString != "100" && windLock.state.toString != "ON") {   
+                    livingRoomRolloControl.sendCommand("100")
+                }
+            } else {
+                if(balkonyRaffstoreRightControl.state.toString != "1") {
+                    balkonyRaffstoreRightControl.sendCommand("1")
+                }
+
+                if(balkonyRaffstoreLeftControl.state.toString != "1") {
+                    balkonyRaffstoreLeftControl.sendCommand("1")
+                }
+
+                if(livingRoomRolloControl.state.toString != "1") {
+                    livingRoomRolloControl.sendCommand("1")
+                }
+            }
+        } else {
+            logInfo("Beschattung","Zu dunkel, öffne alle Verschattungen")
+
+            if(bedroomRaffstoreControl.state.toString != "1" && !sleepTime) {
+                bedroomRaffstoreControl.sendCommand("1")
+            }
+
+            if(kitchenRaffstoreControl.state.toString != "1") {
+                kitchenRaffstoreControl.sendCommand("1")
+            }
+
+            if(balkonyRaffstoreRightControl.state.toString != "1") {
+                balkonyRaffstoreRightControl.sendCommand("1")
+            }
+
+            if(balkonyRaffstoreLeftControl.state.toString != "1") {
+                balkonyRaffstoreLeftControl.sendCommand("1")
+            }
+
+            if(livingRoomRolloControl.state.toString != "1") {
+                livingRoomRolloControl.sendCommand("1")
+            }
+        }
+
+        if(sleepTime) {
+            logInfo("Beschattung","Sleep Time, Schlafzimmer wird geschlossen")
+            if(bedroomRaffstoreControl.state.toString != "100") {
+                bedroomRaffstoreControl.sendCommand("100")
+            }
+        }
+    }
+end
+
+rule "Türgriff Sperre"
+when
+    Item tuergriffBalkon received update
+then
+    if(tuergriffBalkon.state.toString == "OPEN") {
+        if(balkonyRaffstoreRightControl.state.toString != "1") {
+            balkonyRaffstoreRightControl.sendCommand("1")
+        }
+    }
+
+end

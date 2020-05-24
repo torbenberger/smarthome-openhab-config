@@ -1,0 +1,116 @@
+sitemap fuchsbau label="Fuchsbau" {
+    Frame label="Fenster" {
+        Default item=windowFrontRight label="Dachfenster rechts" icon="window"
+        Default item=windowFrontLeft label="Dachfenster links" icon="window"
+        Default item=windowRear label="Dachfenster hinten" icon="window"
+    }
+
+    Frame label="Beschattung" {
+        Default item=automaticBlinds label="Automatische Beschattung"
+        Default item=balkonyRaffstoreRight label="Balkon Raffstore rechts"
+        Default item=balkonyRaffstoreLeft label="Balkon Raffstore links"
+        Default item=kitchenRaffstore label="Küche Raffstore"
+        Default item=bedroomRaffstore label="Schlafzimmer Raffstore"
+        Default item=livingRoomRollo label="Rollo"
+    }
+    
+    Frame label="Sonne" {
+        Text item=Azimuth label="Azimut" icon="sun" {
+            Chart item=Azimuth period=h refresh=7200 visibility=[periodAzimut==0, periodAzimut=="Uninitialized"]
+            Chart item=Azimuth period=D refresh=14400 visibility=[periodAzimut==1]
+            Chart item=Azimuth period=W refresh=14400 visibility=[periodAzimut==2]
+            Chart item=Azimuth period=M refresh=14400 visibility=[periodAzimut==3]
+            Chart item=Azimuth period=Y refresh=14400 visibility=[periodAzimut==4]
+
+            Switch item=periodAzimut label="" icon="time" mappings=[0="Stunde", 1="Tag", 2="Woche", 3="Monat", 4="Jahr"]
+        }
+
+        Text item=Elevation label="Elevation" icon="sun" {
+            Chart item=Elevation period=h refresh=7200 visibility=[periodElevation==0, periodElevation=="Uninitialized"]
+            Chart item=Elevation period=D refresh=14400 visibility=[periodElevation==1]
+            Chart item=Elevation period=W refresh=14400 visibility=[periodElevation==2]
+            Chart item=Elevation period=M refresh=14400 visibility=[periodElevation==3]
+            Chart item=Elevation period=Y refresh=14400 visibility=[periodElevation==4]
+
+            Switch item=periodElevation label="" icon="time" mappings=[0="Stunde", 1="Tag", 2="Woche", 3="Monat", 4="Jahr"]
+        }
+    }
+
+    Frame label="Wetterstation" {
+        Text item=OUTDOOR_TEMPERATURE label="Temperatur"
+        Text item=OUTDOOR_HUMIDITY label="Luftfeuchtigkeit"
+        Text item=OUTDOOR_ILLUMINATION label="Helligkeit" {
+            Chart item=OUTDOOR_ILLUMINATION period=h refresh=7200 visibility=[periodIllumination==0, periodIllumination=="Uninitialized"]
+            Chart item=OUTDOOR_ILLUMINATION period=D refresh=14400 visibility=[periodIllumination==1]
+            Chart item=OUTDOOR_ILLUMINATION period=W refresh=14400 visibility=[periodIllumination==2]
+            Chart item=OUTDOOR_ILLUMINATION period=M refresh=14400 visibility=[periodIllumination==3]
+            Chart item=OUTDOOR_ILLUMINATION period=Y refresh=14400 visibility=[periodIllumination==4]
+
+            Switch item=periodIllumination label="" icon="time" mappings=[0="Stunde", 1="Tag", 2="Woche", 3="Monat", 4="Jahr"]
+        }
+
+        Text item=windSpeed label="Windgeschwindigkeit" {
+            Chart item=windSpeed period=h refresh=7200 visibility=[periodWindspeed==0, periodWindspeed=="Uninitialized"]
+            Chart item=windSpeed period=D refresh=14400 visibility=[periodWindspeed==1]
+            Chart item=windSpeed period=W refresh=14400 visibility=[periodWindspeed==2]
+            Chart item=windSpeed period=M refresh=14400 visibility=[periodWindspeed==3]
+            Chart item=windSpeed period=Y refresh=14400 visibility=[periodWindspeed==4]
+
+            Switch item=periodWindspeed label="" icon="time" mappings=[0="Stunde", 1="Tag", 2="Woche", 3="Monat", 4="Jahr"]
+        }
+
+        Text item=rainCounter label="Regenmenge (alltime)"
+        Text item=rainCounterDay label="Regenmenge (heute)" {
+            Chart item=rainCounter period=h refresh=7200 visibility=[periodRainCounter==0, periodRainCounter=="Uninitialized"]
+            Chart item=rainCounter period=D refresh=14400 visibility=[periodRainCounter==1]
+            Chart item=rainCounter period=W refresh=14400 visibility=[periodRainCounter==2]
+            Chart item=rainCounter period=M refresh=14400 visibility=[periodRainCounter==3]
+            Chart item=rainCounter period=Y refresh=14400 visibility=[periodRainCounter==4]
+
+            Switch item=periodRainCounter label="" icon="time" mappings=[0="Stunde", 1="Tag", 2="Woche", 3="Monat", 4="Jahr"]
+        }
+    }
+
+    Frame label="Temperatur" {
+        Text item=OFFICE_TEMPERATURE label="Temperatur Büro"
+        Text item=BEDROOM_TEMPERATURE label="Temperatur Schlafzimmer"
+        Text item=LIVINGROOM_TEMPERATURE label="Temperatur Wohnzimmer"
+        Text item=OUTDOOR_TEMPERATURE label="Temperatur außen"
+
+    
+        Chart item=gAllTemps period=h refresh=7200 visibility=[periodTemperature==0, periodTemperature=="Uninitialized"]
+        Chart item=gAllTemps period=D refresh=14400 visibility=[periodTemperature==1]
+        Chart item=gAllTemps period=W refresh=14400 visibility=[periodTemperature==2]
+        Chart item=gAllTemps period=M refresh=14400 visibility=[periodTemperature==3]
+        Chart item=gAllTemps period=Y refresh=14400 visibility=[periodTemperature==4]
+
+        Switch item=periodTemperature label="" icon="time" mappings=[0="Stunde", 1="Tag", 2="Woche", 3="Monat", 4="Jahr"]
+    }
+    
+    Frame label="Luftfeuchtigkeit" {
+        Text item=OFFICE_HUMIDITY label="Luftfeuchtigkeit Büro"
+        Text item=BEDROOM_HUMIDITY label="Luftfeuchtigkeit Schlafzimmer"
+        Text item=LIVINGROOM_HUMIDITY label="Luftfeuchtigkeit Wohnzimmer"
+        Text item=OUTDOOR_HUMIDITY label="Luftfeuchtigkeit außen"
+
+    
+        Chart item=gAllHum period=h refresh=7200 visibility=[periodHumidity==0, periodHumidity=="Uninitialized"]
+        Chart item=gAllHum period=D refresh=14400 visibility=[periodHumidity==1]
+        Chart item=gAllHum period=W refresh=14400 visibility=[periodHumidity==2]
+        Chart item=gAllHum period=M refresh=14400 visibility=[periodHumidity==3]
+        Chart item=gAllHum period=Y refresh=14400 visibility=[periodHumidity==4]
+
+        Switch item=periodHumidity label="" icon="time" mappings=[0="Stunde", 1="Tag", 2="Woche", 3="Monat", 4="Jahr"]
+    }
+
+    Frame label="Batteriestatus" {
+        Text label="Alle" icon="battery" {
+            Default item=lowBatTempHumOffice label="Temp/Hum Office - Niedriger batteriestatus" icon="battery"
+            Default item=lowBatTempHumBedroom label="Temp/Hum Schalfzimmer - Niedriger batteriestatus" icon="battery"
+            Default item=lowBatTempHumLivingRoom label="Temp/Hum Wohnzimer - Niedriger batteriestatus" icon="battery"
+            Default item=lowBatDoorHandle label="Türgriffsensor - Niedriger batteriestatus" icon="battery"
+            Default item=lowBatWeatherStation label="Wetterstation - Niedriger batteriestatus" icon="battery"
+            Default item=lowBatTempHumOutdoor label="Temp/Hum außen - Niedriger batteriestatus" icon="battery"
+        }
+    }
+}

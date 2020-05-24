@@ -1,0 +1,6 @@
+rule "Batterie Warnung"
+when
+    Member of lowBat changed from OFF to ON
+then
+    sendNotification("mail@torbenberger.de", "ACHTUNG: Eine Batterie ist leer")
+end

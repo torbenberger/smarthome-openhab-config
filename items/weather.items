@@ -1,0 +1,12 @@
+Group RRD4J
+Group gAllTemps
+Group gAllHum
+Group gAllWeather
+
+Number OUTDOOR_ILLUMINATION "Lichtintensität außen" (RRD4J, gAllWeather) {channel="homematic:HmIP-SWO-PL:3014F711A0001F9A498CA5C6:00181A49904694:1#ILLUMINATION"} 
+Switch OUTDOOR_RAINING "Regen" {channel="homematic:HmIP-SWO-PL:3014F711A0001F9A498CA5C6:00181A49904694:1#RAINING"}
+Number OUTDOOR_HUMIDITY "Luftfeuchtigkeit außen" (RRD4J, gAllHum, gAllWeather) {channel="homematic:HmIP-STHO:3014F711A0001F9A498CA5C6:000EDA499C7EB6:1#HUMIDITY"}
+Number:Temperature OUTDOOR_TEMPERATURE "Temperatur außen" (RRD4J, gAllTemps, gAllWeather) {channel="homematic:HmIP-STHO:3014F711A0001F9A498CA5C6:000EDA499C7EB6:1#ACTUAL_TEMPERATURE"}
+Number:Speed windSpeed "Windgeschwindigkeit" (RRD4J, gAllWeather) {channel="homematic:HmIP-SWO-PL:3014F711A0001F9A498CA5C6:00181A49904694:1#WIND_SPEED"}
+Number:Length rainCounter "Regenmenge" (RRD4J, gAllWeather) {channel="homematic:HmIP-SWO-PL:3014F711A0001F9A498CA5C6:00181A49904694:1#RAIN_COUNTER"}
+Number:Length rainCounterDay "Regenmenge (Tag)" (RRD4J, gAllWeather)

@@ -1,0 +1,48 @@
+import org.eclipse.smarthome.model.script.ScriptServiceUtil
+
+rule "Rolladen Status Update" // status update
+when
+    Member of rollStatus received update
+then
+    var name = triggeringItem.name
+    name = name.replace('Status','') 
+
+    var correspondingProxy = ScriptServiceUtil.getItemRegistry.getItem(name)
+
+// I will later add some mappings here, where it will compansate the offset
+// of the roller shutter when it allready touches the ground, but is not fully
+// closed. Then  the Basic UI shows a half open roller shutter, if it is really
+// half open 
+
+    if(triggeringItem.state != correspondingProxy.state.toString){
+        correspondingProxy.postUpdate(triggeringItem.state.toString)
+    }
+end
+
+rule "Rolladen steuern" // control rollershutter
+when
+    Member of rollProxy received command
+then
+    var correspondingControll = ScriptServiceUtil.getItemRegistry.getItem(triggeringItem.name + "Control")
+
+// here the actual mapping happens
+    switch(receivedCommand){
+        case DOWN: {
+            if(correspondingControll.state != "100"){
+                correspondingControll.sendCommand("100")
+            }
+        }
+        case UP:{
+            if(correspondingControll.state != "1"){
+                correspondingControll.sendCommand("1")
+            }
+        }
+//here I will add the same mapping logic for the offset
+        default: {
+            if(correspondingControll.state != receivedCommand){
+                correspondingControll.sendCommand(receivedCommand)
+            }
+        }
+    }
+    
+end

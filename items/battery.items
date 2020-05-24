@@ -1,0 +1,8 @@
+Group lowBat
+
+Switch lowBatTempHumOffice "Temp/Hum Office - Niedriger batteriestatus" (lowBat) {channel="homematic:HmIP-STH:3014F711A0001F9A498CA5C6:000E5A49A8F13E:0#LOW_BAT"}
+Switch lowBatTempHumBedroom "Temp/Hum Schalfzimmer - Niedriger batteriestatus" (lowBat) {channel="homematic:HmIP-STH:3014F711A0001F9A498CA5C6:000E5A49A8F169:0#LOW_BAT"}
+Switch lowBatTempHumLivingRoom "Temp/Hum Wohnzimer - Niedriger batteriestatus" (lowBat) {channel="homematic:HmIP-STH:3014F711A0001F9A498CA5C6:000E5A49A8F168:0#LOW_BAT"}
+Switch lowBatDoorHandle "Türgriffsensor - Niedriger batteriestatus" (lowBat) {channel="homematic:HmIP-SRH:3014F711A0001F9A498CA5C6:0007DA49992CF6:0#LOW_BAT"}
+Switch lowBatWeatherStation "Wetterstation - Niedriger batteriestatus" (lowBat) {channel="homematic:HmIP-SWO-PL:3014F711A0001F9A498CA5C6:00181A49904694:0#LOW_BAT"}
+Switch lowBatTempHumOutdoor "Wetterstation - Niedriger batteriestatus" (lowBat) {channel="homematic:HmIP-STHO:3014F711A0001F9A498CA5C6:000EDA499C7EB6:0#LOW_BAT"}

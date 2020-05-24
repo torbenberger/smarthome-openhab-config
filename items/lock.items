@@ -1,0 +1,2 @@
+Switch windLock "Wind Sperre"
+Switch windThresholdOverrun "Wind Limit" {channel="homematic:HmIP-SWO-PL:3014F711A0001F9A498CA5C6:00181A49904694:1#WIND_THRESHOLD_OVERRUN"}

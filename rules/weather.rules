@@ -1,0 +1,31 @@
+rule "Regenmenge pro Tag"
+when
+    Item rainCounter received update
+then
+    var rainSinceMidnight = rainCounter.deltaSince(now.minusMinutes(5), "rrd4j") as Number
+    if(rainSinceMidnight == null) {
+        rainSinceMidnight = rainCounter.state as Number
+    }
+    rainCounterDay.postUpdate(rainSinceMidnight)
+    logInfo("Regen", rainSinceMidnight)
+end
+
+
+rule "Es regnet"
+when
+    Item OUTDOOR_RAINING changed from OFF to ON
+then
+    if(windowFrontLeft.state == ON) {
+        windowFrontLeft.sendCommand(OFF)
+    }
+
+    if(windowFrontRight.state == ON) {
+        windowFrontRight.sendCommand(OFF)
+    }
+
+    if(windowRear.state == ON) {
+        windowRear.sendCommand(OFF)
+    }
+
+    sendNotification("mail@torbenberger.de", "ACHTUNG: Es regnet")
+end

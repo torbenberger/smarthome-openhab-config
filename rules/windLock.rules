@@ -1,0 +1,45 @@
+var Timer windLockTimer = null
+var int lockDuration = 60 * 15
+
+rule "Windsperre Regel"	
+when
+	Item windLock received update
+then
+
+    if(windLock.state == ON) {
+        logInfo("Windsperre", "Windsperre aktiviert")
+
+        if(windLockTimer !== null) {
+            logInfo("Windsperre", "reschedule Windtimer")
+            windLockTimer.reschedule(now.plusSeconds(lockDuration))
+        } else {
+            logInfo("Windsperre", "create Windtimer")
+            windLockTimer = createTimer(now.plusSeconds(lockDuration), [|
+                windLock.postUpdate(OFF)
+                windLockTimer = null
+
+                logInfo("Windsperre", "Windsperre deaktiviert")
+            ])
+        }
+    }
+
+end
+
+rule "Windsperre Overrun Regel"	
+when
+	Item windThresholdOverrun received update
+then
+    if(windThresholdOverrun.state == ON) {
+	if(windLock.state == OFF) {
+		logInfo("Winsperre Overrun", "Maximaler Wind erreicht")
+		sendNotification("mail@torbenberger.de", "ACHTUNG: Starker Wind")
+        }
+
+	windLock.postUpdate(ON)
+
+        if(livingRoomRolloControl.state.toString != "1") {
+            livingRoomRolloControl.sendCommand("1")
+        }
+    }
+
+end

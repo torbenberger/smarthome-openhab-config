@@ -1,0 +1,16 @@
+// rule "Abstand von Zuhause"
+// when
+//     Item locationTorbensIPhone changed
+// then
+//     homeLocation.state = new PointType(new DecimalType(49.482780), new DecimalType(8.538357))
+//     distanceFromHome.postUpdate(homeLocation.distanceFrom(locationTorbensIPhone))
+// end
+
+
+// rule "Licht an wenn Zuhause"
+// when
+//     Item locationTorbensIPhone changed
+// then
+//     homeLocation.state = new PointType(new DecimalType(49.482780), new DecimalType(8.538357))
+//     distanceFromHome.postUpdate(homeLocation.distanceFrom(locationTorbensIPhone))
+// end
